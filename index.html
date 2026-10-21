@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #dededb; color: #737373; font-family: Arial, Helvetica, sans-serif; }
+  main { width: min(100% - 28px, 870px); margin: 28px auto 48px; }
+  .toolbar { display: flex; justify-content: flex-end; margin-bottom: 18px; }
+  button { border: 0; border-radius: 4px; background: #343733; color: white; font: 500 14px Arial, sans-serif; padding: 12px 20px; cursor: pointer; }
+  button:hover { background: #4b5049; }
+  button:focus-visible { outline: 3px solid #6e8770; outline-offset: 4px; }
+  button:disabled { opacity: .6; cursor: wait; }
+  .page { display: block; width: 100%; aspect-ratio: 210 / 297; background: white; margin-bottom: 24px; box-shadow: 0 2px 12px #00000018; }
+  #status { font-size: 14px; }
+  #status:empty { display: none; }
+  @media (max-width: 600px) { main { width: calc(100% - 16px); margin-top: 16px; } .toolbar { margin-bottom: 14px; } .page { margin-bottom: 16px; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="toolbar"><button id="download" disabled>Download PDF</button></div>
+  <p id="status" role="status">Loading CV…</p>
+  <div id="pages"></div>
+</main>
+<script src="src/jspdf.umd.min.js"></script>
+<script>
+'use strict';
+// All coordinates are PDF points in the original document's coordinate system.
+// Both outputs consume the same calculated lines, page breaks and graphics.
+const L = { width: 595.5, height: 850.07996, sidebar: 144.886, bottom: 817,
+  lineHeight: 14.255371, gray: '#737373', ink: '#262424', beige: '#edeae4' };
+const { jsPDF } = window.jspdf;
+const A4 = [210 * 72 / 25.4, 297 * 72 / 25.4];
+const metrics = new jsPDF({ unit: 'pt', format: A4 });
+function fontStyle(type) {
+  return ['heading', 'name', 'title', 'meta'].includes(type) ? 'bold' : type === 'note' ? 'italic' : 'normal';
+}
+function textWidth(text, size, style) {
+  metrics.setFont('helvetica', style); metrics.setFontSize(size);
+  return metrics.getTextWidth(text);
+}
+function wrap(text, width, size, style) {
+  // Existing newlines retain the original line breaks. Longer edits wrap naturally.
+  const lines = [];
+  for (const paragraph of text.split('\n')) {
+    let line = '';
+    for (const word of paragraph.split(/ +/)) {
+      if (line && textWidth(line + ' ' + word, size, style) > width) {
+        lines.push(line); line = '';
+      }
+      if (textWidth(word, size, style) > width) {
+        for (const char of word) {
+          if (line && textWidth(line + char, size, style) > width) { lines.push(line); line = ''; }
+          line += char;
+        }
+      } else line += (line ? ' ' : '') + word;
+    }
+    lines.push(line);
+  }
+  return lines;
+}
+function layout(cv) {
+  const result = [];
+  cv.pages.forEach((source, sourceIndex) => {
+    const first = { sourceIndex, header: !!source.header, lines: [], rules: [], bullets: [], icons: [] };
+    result.push(first);
+    for (const b of source.header || []) place(first, b, b.y, false);
+    for (const column of ['sidebar', 'main']) {
+      let page = first, shift = 0, previousBottom = -100, previousSize = 0;
+      const list = (source[column] || []).flatMap(section => section.blocks);
+      for (let i = 0; i < list.length; i++) {
+        const b = list[i], side = column === 'sidebar';
+        let y = Math.max(b.y + shift, previousBottom + Math.min(previousSize,b.size)*1.05);
+        const lines = wrap(b.text, (side ? 140 : 577) - b.x, b.size, fontStyle(b.type));
+        const leading = side && sourceIndex === 0 && b.type === 'bullet' ? 15 : L.lineHeight;
+        // Keep a title and its employer together, and a heading with its next block.
+        let reserve = (lines.length - 1) * leading;
+        if (['title', 'heading'].includes(b.type) && list[i + 1]) {
+          const next = list[i + 1];
+          const nextLines = wrap(next.text, (side ? 140 : 577) - next.x, next.size, fontStyle(next.type));
+          reserve += next.y - b.y + Math.max(0, nextLines.length - 1) * leading;
+        }
+        if (y + reserve > L.bottom) {
+          page = { sourceIndex, header: false, lines: [], rules: [], bullets: [], icons: [] };
+          result.push(page); shift = 45 - b.y; y = 45;
+        }
+        if ((lines.length - 1) * leading > L.bottom - y) {
+          // Very large edited paragraphs are split only at line boundaries.
+          let offset = 0, lastY = y;
+          while (offset < lines.length) {
+            const count = Math.max(1, Math.floor((L.bottom - y) / leading) + 1);
+            place(page, {...b, text: lines.slice(offset, offset + count).join('\n')}, y, side, leading);
+            lastY = y + (Math.min(count,lines.length-offset)-1)*leading;
+            offset += count;
+            if (offset < lines.length) { page = {sourceIndex, header:false, lines:[],rules:[],bullets:[],icons:[]}; result.push(page); y = 45; }
+          }
+          previousBottom=lastY;
+          shift=lastY-b.y-(b.text.split('\n').length-1)*leading;
+        } else {
+          place(page, b, y, side, leading);
+          previousBottom=y+(lines.length-1)*leading;
+          shift=y-b.y+(lines.length-b.text.split('\n').length)*leading;
+        }
+        previousSize=b.size;
+      }
+    }
+  });
+  return result;
+}
+function place(page, b, y, side, leading = L.lineHeight) {
+  const style = fontStyle(b.type), maxWidth = b.type === 'name' || b.type === 'subtitle' ? 575 - b.x : (side ? 140 : 577) - b.x;
+  const lines = wrap(b.text, maxWidth, b.size, style);
+  lines.forEach((text, i) => page.lines.push({text, x:b.x, y:y+i*leading, size:b.size, style,
+    color:b.type==='title' ? L.ink : L.gray}));
+  if (b.type === 'heading') page.rules.push({x:b.x, y:y+4, end:side ? 133 : 560});
+  if (b.type === 'bullet') page.bullets.push({x:b.x-(side ? 5 : 10), y:y-3, r:1.2});
+  if (b.icon) page.icons.push({type:b.icon,x:9,y:y-8,size:10});
+}
+function el(name, attributes = {}, text) {
+  const node = document.createElementNS('http://www.w3.org/2000/svg', name);
+  for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, value);
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+function render(cv) {
+  const container = document.getElementById('pages'); container.replaceChildren();
+  const pages = layout(cv);
+  pages.forEach((page, i) => {
+    const svg = el('svg', {class:'page', viewBox:`0 0 ${L.width} ${L.height}`, role:'group', 'aria-label':`CV page ${i+1}`});
+    svg.append(el('rect',{width:L.width,height:L.height,fill:'#ffffff'}));
+    svg.append(el('rect',{width:L.sidebar,height:L.height,fill:L.beige}));
+    if (page.header) svg.append(el('rect',{x:140.47,y:0,width:455.03,height:115.42,fill:'#f0f0f0'}));
+    const clipId = `portrait-${i}`;
+    const defs=el('defs'),clip=el('clipPath',{id:clipId});
+    clip.append(el('circle',{cx:93.2,cy:82,r:65}));defs.append(clip);svg.append(defs);
+    svg.append(el('circle',{cx:93.2,cy:82,r:65,fill:L.gray}));
+    svg.append(el('image',{href:cv.profile.image,x:5.45,y:7.2,width:175.5,height:175.5,preserveAspectRatio:'xMidYMid slice','clip-path':`url(#${clipId})`}));
+    for (const r of page.rules) svg.append(el('line',{x1:r.x,y1:r.y,x2:r.end,y2:r.y,stroke:L.gray,'stroke-width':.6}));
+    for (const b of page.bullets) svg.append(el('circle',{cx:b.x,cy:b.y,r:b.r,fill:L.gray}));
+    for (const icon of page.icons) drawIcon((name,attrs)=>svg.append(el(name,attrs)),icon);
+    for (const line of page.lines) {
+      const node = el('text',{x:line.x,y:line.y,'font-family':'Arial, Helvetica, sans-serif','font-size':line.size,
+        'font-weight':line.style==='bold' ? 700 : 400,'font-style':line.style==='italic'?'italic':'normal',fill:line.color,
+        textLength:textWidth(line.text,line.size,line.style),lengthAdjust:'spacingAndGlyphs'},line.text);
+      svg.append(node);
+    }
+    container.append(svg);
+  });
+  return pages;
+}
+// Small geometric contact symbols use identical paths in SVG and PDF.
+function drawIcon(add, icon) {
+  const {x,y,size:s,type}=icon;
+  add('rect',{x,y,width:s,height:s,fill:L.gray});
+  if(type==='email') {
+    add('rect',{x:x+1.5,y:y+2.5,width:7,height:5,fill:'none',stroke:'#fff','stroke-width':.6});
+    add('path',{d:`M ${x+1.5} ${y+2.5} L ${x+5} ${y+5.5} L ${x+8.5} ${y+2.5}`,fill:'none',stroke:'#fff','stroke-width':.6});
+  } else if(type==='linkedin') {
+    add('path',{d:`M ${x+2} ${y+4} L ${x+2} ${y+8} M ${x+4.5} ${y+8} L ${x+4.5} ${y+4} Q ${x+8} ${y+3} ${x+8} ${y+6} L ${x+8} ${y+8}`,fill:'none',stroke:'#fff','stroke-width':1});
+    add('circle',{cx:x+2,cy:y+2,r:.7,fill:'#fff'});
+  } else if(type==='location') {
+    add('path',{d:`M ${x+5} ${y+9} Q ${x-1} ${y+2} ${x+5} ${y+1} Q ${x+11} ${y+2} ${x+5} ${y+9} Z`,fill:'#fff'});
+    add('circle',{cx:x+5,cy:y+3.5,r:1.4,fill:L.gray});
+  } else add('path',{d:`M ${x+2} ${y+1.5} L ${x+1.5} ${y+3.5} Q ${x+3} ${y+8} ${x+7} ${y+8.5} L ${x+8.5} ${y+7} L ${x+6.5} ${y+5.5} L ${x+5.5} ${y+6.5} L ${x+3.5} ${y+4.5} L ${x+4.5} ${y+3.5} Z`,fill:'#fff'});
+}
+async function loadCV() {
+  const response = await fetch('cv.json', {cache:'no-store'});
+  if (!response.ok) throw new Error('Could not load cv.json.');
+  return response.json();
+}
+async function makePDF(cv, imageData) {
+  const pdf = new jsPDF({unit:'pt',format:A4,compress:true});
+  const w=pdf.internal.pageSize.getWidth(), h=pdf.internal.pageSize.getHeight();
+  const scale=Math.min(w/L.width,h/L.height), dx=(w-L.width*scale)/2;
+  const X=x=>dx+x*scale,Y=y=>y*scale;
+  const pages=layout(cv);
+  pages.forEach((page,i)=>{
+    if(i) pdf.addPage(A4);
+    pdf.setFillColor(L.beige);pdf.rect(X(0),0,L.sidebar*scale,h,'F');
+    if(page.header){pdf.setFillColor('#f0f0f0');pdf.rect(X(140.47),0,455.03*scale,115.42*scale,'F');}
+    pdf.setFillColor(L.gray);pdf.circle(X(93.2),Y(82),65*scale,'F');
+    pdf.saveGraphicsState();pdf.circle(X(93.2),Y(82),65*scale,null);pdf.clip();pdf.discardPath();
+    // The unmodified PNG is placed inside the circular crop.
+    const iw=imageData.width,ih=imageData.height,ratio=Math.max(175.5/iw,175.5/ih);
+    pdf.addImage(imageData.url,'PNG',X(93.2-iw*ratio/2),Y(94.95-ih*ratio/2),iw*ratio*scale,ih*ratio*scale,'portrait','FAST');
+    pdf.restoreGraphicsState();
+    pdf.setDrawColor(L.gray);pdf.setLineWidth(.6*scale);
+    page.rules.forEach(r=>pdf.line(X(r.x),Y(r.y),X(r.end),Y(r.y)));
+    pdf.setFillColor(L.gray);page.bullets.forEach(b=>pdf.circle(X(b.x),Y(b.y),b.r*scale,'F'));
+    for(const icon of page.icons){
+      drawIcon((name,a)=>{
+        pdf.setFillColor(a.fill==='none'?'#ffffff':a.fill||'#ffffff');pdf.setDrawColor(a.stroke||'#ffffff');pdf.setLineWidth((a['stroke-width']||.6)*scale);
+        if(name==='rect')pdf.rect(X(a.x),Y(a.y),a.width*scale,a.height*scale,a.fill==='none'?'S':'F');
+        if(name==='circle')pdf.circle(X(a.cx),Y(a.cy),a.r*scale,'F');
+        if(name==='path'){
+          const t=a.d.match(/[MLQZ]|-?\d*\.?\d+/g);let j=0;
+          while(j<t.length){const cmd=t[j++];if(cmd==='M')pdf.moveTo(X(+t[j++]),Y(+t[j++]));else if(cmd==='L')pdf.lineTo(X(+t[j++]),Y(+t[j++]));else if(cmd==='Q'){const qx=+t[j++],qy=+t[j++],ex=+t[j++],ey=+t[j++];pdf.curveTo(X(qx),Y(qy),X(qx),Y(qy),X(ex),Y(ey));}else if(cmd==='Z')pdf.close();}
+          if(a.fill==='none')pdf.stroke();else pdf.fill();
+        }
+      },icon);
+    }
+    page.lines.forEach(line=>{pdf.setFont('helvetica',line.style);pdf.setFontSize(line.size*scale);pdf.setTextColor(line.color);pdf.text(line.text,X(line.x),Y(line.y));});
+  });
+  return pdf;
+}
+async function loadPortrait(path) {
+  const response=await fetch(path);if(!response.ok)throw new Error('Could not load the portrait.');
+  const blob=await response.blob();
+  const url=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(blob);});
+  const image=new Image();image.src=url;await image.decode();return {url,width:image.naturalWidth,height:image.naturalHeight};
+}
+const button=document.getElementById('download'),status=document.getElementById('status');
+loadCV().then(cv=>{render(cv);document.title=cv.pages[0].header[0].text;button.disabled=false;status.textContent='';})
+  .catch(error=>{status.textContent=error.message+' Preview this folder with a local HTTP server.';});
+button.addEventListener('click',async()=>{
+  button.disabled=true;status.textContent='';
+  try {
+    const cv=await loadCV();render(cv);
+    const pdf=await makePDF(cv,await loadPortrait(cv.profile.image));pdf.save('Kate_Macauley_CV.pdf');
+  } catch(error){status.textContent='PDF download failed: '+error.message;}
+  finally {button.disabled=false;}
+});
+</script>
+</body>
+</html>

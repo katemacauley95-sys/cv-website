@@ -1,0 +1,681 @@
+{
+  "profile": {
+    "image": "src/profile.png"
+  },
+  "pages": [
+    {
+      "sidebar": [
+        {
+          "section": "contact",
+          "blocks": [
+            {
+              "type": "heading",
+              "text": "CONTACT",
+              "x": 11.434,
+              "y": 201.622,
+              "size": 12.005
+            },
+            {
+              "type": "contact",
+              "text": "+44 (0)7425 132 270",
+              "x": 24.66,
+              "y": 224.099,
+              "size": 9.003,
+              "icon": "phone"
+            },
+            {
+              "type": "contact",
+              "text": "katemacauley95@gmail.com",
+              "x": 24.66,
+              "y": 240.705,
+              "size": 7.003,
+              "icon": "email"
+            },
+            {
+              "type": "contact",
+              "text": "/katemacauley-hr",
+              "x": 24.66,
+              "y": 260.306,
+              "size": 8.003,
+              "icon": "linkedin"
+            },
+            {
+              "type": "contact",
+              "text": "Relocating to Sydney",
+              "x": 24.66,
+              "y": 278.467,
+              "size": 8.003,
+              "icon": "location"
+            }
+          ]
+        },
+        {
+          "section": "skills",
+          "blocks": [
+            {
+              "type": "heading",
+              "text": "CORE SKILLS",
+              "x": 11.434,
+              "y": 316.888,
+              "size": 12.005
+            },
+            {
+              "type": "bullet",
+              "text": "Strategic HR Business\nPartnering",
+              "x": 21.477,
+              "y": 336.046,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "Organisational Design &\nEffectiveness",
+              "x": 21.477,
+              "y": 366.058,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "Executive Coaching &\nInfluence",
+              "x": 21.477,
+              "y": 396.069,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "HR Transformation & Change\nManagement",
+              "x": 21.477,
+              "y": 426.08,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "Talent & Succession Planning",
+              "x": 21.477,
+              "y": 456.092,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "Leadership Development",
+              "x": 21.477,
+              "y": 471.097,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "Performance Management",
+              "x": 21.477,
+              "y": 486.103,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "HR Policy & Process\nDevelopment",
+              "x": 21.477,
+              "y": 501.109,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "People Analytics",
+              "x": 21.477,
+              "y": 531.12,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "M&A Integration",
+              "x": 21.477,
+              "y": 546.126,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "Employee Relations,\nInternational HR &\nEmployment Compliance",
+              "x": 21.477,
+              "y": 561.131,
+              "size": 9.003
+            }
+          ]
+        }
+      ],
+      "main": [
+        {
+          "section": "about",
+          "blocks": [
+            {
+              "type": "heading",
+              "text": "ABOUT ME",
+              "x": 165.131,
+              "y": 143.351,
+              "size": 14
+            },
+            {
+              "type": "paragraph",
+              "text": "Strategic People Leader and hands-on HRBP. I partner with executive leaders and C-suite\nexecutives to align people strategy with business objectives, drive culture transformation and\nscale organisation capabilities during growth. Experience across high-growth technology\nand global FMCG in international organisations leading on talent strategy, org design and\nemployee relations.",
+              "x": 166.081,
+              "y": 168.506,
+              "size": 10.001
+            },
+            {
+              "type": "paragraph",
+              "text": "I operate with transparency, empathy and pragmatism to balance commercial outcomes with\na genuine care for people. I bring energy, humour and a sense of authenticity to the\nworkplace to foster an environment where engaged employees can perform at their best.",
+              "x": 165.131,
+              "y": 241.47,
+              "size": 10.001
+            }
+          ]
+        },
+        {
+          "section": "experience",
+          "blocks": [
+            {
+              "type": "heading",
+              "text": "EXPERIENCE",
+              "x": 165.131,
+              "y": 297.228,
+              "size": 14
+            }
+          ]
+        },
+        {
+          "section": "careerBreak",
+          "blocks": [
+            {
+              "type": "title",
+              "text": "Career Break - Travel",
+              "x": 163.555,
+              "y": 319.439,
+              "size": 10.999
+            },
+            {
+              "type": "meta",
+              "text": "All over the World | January 2026 - Present",
+              "x": 163.555,
+              "y": 331.649,
+              "size": 10.001
+            }
+          ]
+        },
+        {
+          "section": "miro",
+          "blocks": [
+            {
+              "type": "title",
+              "text": "Senior HRBP, Engineering, Product & Design",
+              "x": 165.131,
+              "y": 356.613,
+              "size": 10.999
+            },
+            {
+              "type": "meta",
+              "text": "Miro | July 2024 - January 2026",
+              "x": 165.131,
+              "y": 368.823,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Partnered directly with C-Suite and VP-level leaders to align operating models, workforce\nstrategy and headcount allocation with core product roadmaps and wider business\nobjectives across 300 employees.",
+              "x": 177.078,
+              "y": 387.18,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Guided executive leadership through end-to-end organisational restructures and strategic\nshifts. Led the change management strategy for a major organisational restructure,\nretaining key talent and maintaining momentum and engagement.",
+              "x": 177.078,
+              "y": 429.946,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Led HR integration strategy for acquisitions, managing levelling, compensation mapping,\nculture alignment and retention.",
+              "x": 177.078,
+              "y": 472.712,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Redesigned Product & Design career ladders from scratch, establishing standardised job\ntitles, clear progression tracks and consistent evaluation criteria.",
+              "x": 177.078,
+              "y": 501.223,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Co-designed, deployed and enabled the company-wide talent review process in\nWorkday, establishing data-driven calibration and org-wide consistency. Increased\nevidence-based promotions and employee trust in process.",
+              "x": 177.078,
+              "y": 529.733,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "End-to-end designer and sponsor of a global management development program scaled\nto 300+ leaders, driving measurable improvements in management effectiveness and\nleadership engagement scores.",
+              "x": 177.078,
+              "y": 572.5,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Established core workforce analytics metrics to inform talent investment decisions, while\npartnering with HR Operations to eliminate delivery bottlenecks and streamline core HR\nprocesses.",
+              "x": 177.078,
+              "y": 615.266,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Managed complex employee relations issues, performance management cases,\nemployment law compliance, workplace investigations and Workers Council relations.",
+              "x": 177.078,
+              "y": 658.032,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Fostered an inclusive culture, leading on DEI and Engagement initiatives for the org.",
+              "x": 177.078,
+              "y": 686.543,
+              "size": 10.001
+            }
+          ]
+        },
+        {
+          "section": "datadog",
+          "blocks": [
+            {
+              "type": "title",
+              "text": "People Business Partner, EMEA Sales",
+              "x": 168.607,
+              "y": 710.507,
+              "size": 10.999
+            },
+            {
+              "type": "meta",
+              "text": "Datadog | September 2022 - July 2024",
+              "x": 168.607,
+              "y": 722.716,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Partnered with EMEA Commercial & Global Mid-Market teams (approx. 250 employees)\nto scale the region by 25%, aligning workforce planning, org design and targeted talent\nacquisition with revenue targets.",
+              "x": 180.554,
+              "y": 738.822,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Led the Amsterdam office people strategy, including Dutch employment-law compliance,\nmanaging the set up and ongoing operations of the local Works Council.",
+              "x": 180.554,
+              "y": 781.588,
+              "size": 10.001
+            },
+            {
+              "type": "note",
+              "text": "Continued on next page",
+              "x": 163.555,
+              "y": 811.6,
+              "size": 10.001
+            }
+          ]
+        }
+      ],
+      "header": [
+        {
+          "type": "name",
+          "text": "Kate Macauley",
+          "x": 198.368,
+          "y": 68.021,
+          "size": 39.217
+        },
+        {
+          "type": "subtitle",
+          "text": "Strategic Senior HRBP | People Strategy, Transformation & Organisational Design",
+          "x": 198.368,
+          "y": 84.828,
+          "size": 9.206
+        }
+      ]
+    },
+    {
+      "sidebar": [
+        {
+          "section": "education",
+          "blocks": [
+            {
+              "type": "heading",
+              "text": "EDUCATION",
+              "x": 12.322,
+              "y": 193.853,
+              "size": 12.005
+            },
+            {
+              "type": "meta",
+              "text": "MSc Human Resource\nManagement",
+              "x": 12.322,
+              "y": 213.747,
+              "size": 9.003
+            },
+            {
+              "type": "paragraph",
+              "text": "Glasgow Caledonian University",
+              "x": 12.322,
+              "y": 243.008,
+              "size": 9.003
+            },
+            {
+              "type": "meta",
+              "text": "BA(Hons) Psychology",
+              "x": 12.322,
+              "y": 258.013,
+              "size": 9.003
+            },
+            {
+              "type": "paragraph",
+              "text": "University of Strathclyde",
+              "x": 12.322,
+              "y": 272.269,
+              "size": 9.003
+            }
+          ]
+        },
+        {
+          "section": "qualifications",
+          "blocks": [
+            {
+              "type": "heading",
+              "text": "QUALIFICATIONS",
+              "x": 12.322,
+              "y": 305.476,
+              "size": 12.005
+            },
+            {
+              "type": "bullet",
+              "text": "CIPD Certified, 2018",
+              "x": 16.17,
+              "y": 325.755,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "Mental health First Aid\ntrained, 2016",
+              "x": 16.17,
+              "y": 340.01,
+              "size": 9.003
+            }
+          ]
+        },
+        {
+          "section": "personal",
+          "blocks": [
+            {
+              "type": "heading",
+              "text": "PERSONAL",
+              "x": 12.322,
+              "y": 389.394,
+              "size": 12.005
+            },
+            {
+              "type": "bullet",
+              "text": "Took a career break to travel\nthe world, visited 21 countries\nin 2026",
+              "x": 18.299,
+              "y": 409.507,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "Book enthusiast",
+              "x": 18.299,
+              "y": 452.273,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "Scuba diver",
+              "x": 18.299,
+              "y": 466.528,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "Passionate about hiking,\nskiing and the outdoors",
+              "x": 18.299,
+              "y": 480.784,
+              "size": 9.003
+            },
+            {
+              "type": "bullet",
+              "text": "Born in Scotland, lived in\nLondon, Amsterdam and\nSydney",
+              "x": 18.299,
+              "y": 509.294,
+              "size": 9.003
+            }
+          ]
+        }
+      ],
+      "main": [
+        {
+          "section": "datadogContinued",
+          "blocks": [
+            {
+              "type": "heading",
+              "text": "EXPERIENCE",
+              "x": 164.306,
+              "y": 46.338,
+              "size": 14
+            },
+            {
+              "type": "note",
+              "text": "Continued...",
+              "x": 164.306,
+              "y": 71.462,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Benchmarked regional compensation structures using workforce analytics, driving\ntargeted salary-band adjustments that directly contributed to a 12% increase in employee\nengagement",
+              "x": 181.304,
+              "y": 85.717,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Spearheaded the Global Sales DEI Strategy, increasing female representation across the\nsales organisation by over 10% in two years.",
+              "x": 181.304,
+              "y": 128.483,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Partnered with executive leaders to resolve high-risk employee relations matters,\nrestructuring underperforming teams and driving performance management frameworks.",
+              "x": 181.304,
+              "y": 156.994,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Built quarterly KPIs across performance, DEI, retention and ER, establishing data visibility\nand leadership accountability for the commercial executive team.",
+              "x": 181.304,
+              "y": 185.504,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Collaborated with CoEs to develop HR policies, programmes and processes.",
+              "x": 181.304,
+              "y": 214.015,
+              "size": 10.001
+            }
+          ]
+        },
+        {
+          "section": "diageoHRBP",
+          "blocks": [
+            {
+              "type": "title",
+              "text": "HRBP, Northern Europe",
+              "x": 169.946,
+              "y": 237.479,
+              "size": 10.999
+            },
+            {
+              "type": "meta",
+              "text": "Diageo, Amsterdam | September 2020 - September 2022",
+              "x": 169.944,
+              "y": 249.689,
+              "size": 10.001
+            },
+            {
+              "type": "note",
+              "text": "Promotion from HR Coordinator",
+              "x": 169.194,
+              "y": 265.795,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Partnered with Commercial & Functional Leadership (approx. 300 employees).",
+              "x": 181.304,
+              "y": 280.05,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Advised leaders on complex ER cases, restructures, redundancies and formal\nconsultations with trade unions and Works Councils across multi-jurisdictional Northern\nEuropean markets.",
+              "x": 181.304,
+              "y": 294.305,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Led organisational effectiveness and initiatives to redesign business units, streamline\noperating models and optimise headcount allocation in alignment with long-term\ncommercial goals.",
+              "x": 181.304,
+              "y": 337.072,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Architected and executed the people strategy for the outsourcing of the Belgian sales\norganisation as part of a wider route-to-consumer transformation, managing\norganisational design, consultation, and workforce transition.",
+              "x": 181.304,
+              "y": 379.838,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Collaborated with Reward, Talent, L&D and Recruitment to deliver integrated people\nstrategies across performance management, compensation and capabilities.",
+              "x": 181.304,
+              "y": 422.604,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Analysed regional workforce data to surface critical talent vulnerabilities, map high-\npotential capability and drive data-backed talent reviews.",
+              "x": 181.304,
+              "y": 451.115,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Sponsor of the Northern Europe Commercial Graduate Programme, overseeing talent\npipeline architecture, rotational programming and career progression.",
+              "x": 181.304,
+              "y": 479.625,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Designed and deployed regional DEI & holistic wellbeing frameworks, implementing\nstructured initiatives to increase diverse representation and employee retention.",
+              "x": 181.304,
+              "y": 508.136,
+              "size": 10.001
+            }
+          ]
+        },
+        {
+          "section": "diageoCoordinator",
+          "blocks": [
+            {
+              "type": "title",
+              "text": "HR Coordinator, Europe Functions",
+              "x": 165.25,
+              "y": 545.105,
+              "size": 10.999
+            },
+            {
+              "type": "meta",
+              "text": "Diageo London | August 2019 - September 2020",
+              "x": 165.25,
+              "y": 556.765,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Supporting employees in 20+ countries across Europe.",
+              "x": 181.304,
+              "y": 576.623,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Partnered with leaders & wider HR team to execute a large (3000+ employees) multi-\ncountry European restructure overseeing employee consultations, workforce\nredeployment, role placement and end-to-end redundancy process",
+              "x": 181.304,
+              "y": 590.878,
+              "size": 10.001
+            }
+          ]
+        },
+        {
+          "section": "diageoEffectiveness",
+          "blocks": [
+            {
+              "type": "title",
+              "text": "Organisational Effectiveness Specialist",
+              "x": 169.946,
+              "y": 642.602,
+              "size": 10.999
+            },
+            {
+              "type": "meta",
+              "text": "Diageo London | August 2018 - September 2019",
+              "x": 168.586,
+              "y": 654.512,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Introduced OrgVue to build global organisational effectiveness and workforce analytics\ncapabilities, delivering multi-year workforce planning frameworks and training HR teams\nacross international markets.",
+              "x": 177.078,
+              "y": 674.37,
+              "size": 10.001
+            },
+            {
+              "type": "bullet",
+              "text": "Coordinated global multi-year succession planning and served as key partner to the\nsenior Grading Committee on executive job evaluation and role leveling.",
+              "x": 177.078,
+              "y": 717.136,
+              "size": 10.001
+            }
+          ]
+        },
+        {
+          "section": "maggies",
+          "blocks": [
+            {
+              "type": "title",
+              "text": "HR Assistant",
+              "x": 168.586,
+              "y": 754.605,
+              "size": 10.999
+            },
+            {
+              "type": "meta",
+              "text": "Maggie’s, Glasgow | January 2018 - August 2018",
+              "x": 168.586,
+              "y": 766.004,
+              "size": 10.001
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
