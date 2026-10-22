@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Keep mobile data detectors from rewriting contact text inside the SVG. -->
+<meta name="format-detection" content="telephone=no, email=no">
 <title>CV</title>
 <link rel="icon" type="image/svg+xml" href="src/favicon.svg">
 <style>
@@ -117,7 +119,8 @@ function place(page, b, y, side, leading = L.lineHeight) {
   const style = fontStyle(b.type), maxWidth = b.type === 'name' || b.type === 'subtitle' ? 575 - b.x : (side ? 140 : 577) - b.x;
   const lines = wrap(b.text, maxWidth, b.size, style);
   lines.forEach((text, i) => page.lines.push({text, x:b.x, y:y+i*leading, size:b.size, style,
-    color:b.type==='title' ? L.ink : L.gray}));
+    color:b.type==='title' ? L.ink : L.gray,
+    href:b.icon==='linkedin' ? 'https://www.linkedin.com/in/'+b.text.replace(/^\//,'') : null}));
   if (b.type === 'heading') page.rules.push({x:b.x, y:y+4, end:side ? 133 : 560});
   if (b.type === 'bullet') page.bullets.push({x:b.x-(side ? 5 : 10), y:y-3, r:1.2});
   if (b.icon) page.icons.push({type:b.icon,x:9,y:y-8,size:10});
@@ -148,7 +151,10 @@ function render(cv) {
       const node = el('text',{x:line.x,y:line.y,'font-family':'Arial, Helvetica, sans-serif','font-size':line.size,
         'font-weight':line.style==='bold' ? 700 : 400,'font-style':line.style==='italic'?'italic':'normal',fill:line.color,
         textLength:textWidth(line.text,line.size,line.style),lengthAdjust:'spacingAndGlyphs'},line.text);
-      svg.append(node);
+      if (line.href) {
+        const link = el('a', {href:line.href, target:'_blank', rel:'noopener noreferrer', style:'text-decoration:none'});
+        link.append(node); svg.append(link);
+      } else svg.append(node);
     }
     container.append(svg);
   });
@@ -205,7 +211,10 @@ async function makePDF(cv, imageData) {
         }
       },icon);
     }
-    page.lines.forEach(line=>{pdf.setFont('helvetica',line.style);pdf.setFontSize(line.size*scale);pdf.setTextColor(line.color);pdf.text(line.text,X(line.x),Y(line.y));});
+    page.lines.forEach(line=>{
+      pdf.setFont('helvetica',line.style);pdf.setFontSize(line.size*scale);pdf.setTextColor(line.color);pdf.text(line.text,X(line.x),Y(line.y));
+      if(line.href) pdf.link(X(line.x),Y(line.y-line.size),textWidth(line.text,line.size,line.style)*scale,line.size*1.2*scale,{url:line.href});
+    });
   });
   return pdf;
 }
