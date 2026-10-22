@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>KM</title>
+  <g fill="#000000">
+    <path d="M3 14h5v16.4L22.8 14h6.5L13.1 31.7 30 50h-6.8L8 33.3V50H3Z"/>
+    <path d="M33 50V14h7l7 26.2L54 14h7v36h-5V22.2L48.6 50h-3.2L38 22.2V50Z"/>
+  </g>
+</svg>
