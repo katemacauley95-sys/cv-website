@@ -98,11 +98,13 @@ function layout(cv) {
             if (offset < lines.length) { page = {sourceIndex, header:false, lines:[],rules:[],bullets:[],icons:[]}; result.push(page); y = 45; }
           }
           previousBottom=lastY;
-          shift=lastY-b.y-(b.text.split('\n').length-1)*leading;
+          shift=lastY-b.y-(lines.length-1)*leading;
         } else {
           place(page, b, y, side, leading);
           previousBottom=y+(lines.length-1)*leading;
-          shift=y-b.y+(lines.length-b.text.split('\n').length)*leading;
+          // previousBottom already accounts for wrapped lines. Only carry
+          // movement of the block itself into the original coordinates.
+          shift=y-b.y;
         }
         previousSize=b.size;
       }
